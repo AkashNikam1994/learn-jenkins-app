@@ -39,5 +39,21 @@ pipeline {
                 '''
             }
         }
+        stage('Run') {
+         agent {
+                docker {
+                    image 'node:22-alpine'
+                    reuseNode true
+                }
+         }
+         steps {
+            sh '''
+                echo "Starting run stage"
+                npm start
+            '''
+
+         }
+
+        }
     }
 }
