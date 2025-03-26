@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                '''
+                sh '''
                     echo "Inside test stage"
                     npm test
                 '''
