@@ -25,5 +25,13 @@ pipeline {
               '''
             }
         }
+        stage('Test') {
+            steps {
+                '''
+                    echo "Inside test stage"
+                    npm test
+                '''
+            }
+        }
     }
 }
