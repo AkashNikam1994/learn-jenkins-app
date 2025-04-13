@@ -49,7 +49,7 @@ pipeline {
             steps {
                 sh '''
                     echo "Starting the application"
-                    npm start
+                    npm run start
                 '''
             }
         }
