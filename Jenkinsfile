@@ -15,31 +15,45 @@ pipeline {
                 }
             }
             steps {
-             sh '''
-                echo "Inside Build stage"
-                ls -la
-                node --version
-                npm -- version
-                npm ci
-                npm run build
-              '''
+                sh '''
+                    echo "Inside Build stage"
+                    ls -la
+                    node --version
+                    npm --version
+                    npm ci
+                    npm run build
+                '''
             }
         }
         stage('Test') {
             agent {
-                    docker {
-                        image 'node:22-alpine'
-                        reuseNode true
-                    }
-                   }
+                docker {
+                    image 'node:22-alpine'
+                    reuseNode true
+                }
+            }
             steps {
                 sh '''
-                    echo "Inside test stage"
+                    test -f build/index.html
                     npm test
                 '''
             }
         }
-		}
+        stage('Run') {
+            agent {
+                docker {
+                    image 'node:22-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    echo "Starting the application"
+                    npm start
+                '''
+            }
+        }
+    }
 
     post {
         always {
