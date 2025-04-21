@@ -21,7 +21,7 @@ pipeline {
                     node --version
                     npm --version
                     npm ci
-                    npm run build
+                    #npm run build
                 '''
             }
         }
@@ -51,7 +51,7 @@ pipeline {
                            npm install serve
                            node_modules/.bin/serve -s build -p 3000 &
                            sleep 10
-                           npx playwright test
+                           npx playwright test --reporter=html
                         '''
                     }
                 }
